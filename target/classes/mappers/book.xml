@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tedu.library.dao.BookDao">
+    <insert id="addBook" parameterType="com.tedu.library.pojo.Book">
+        insert into book_info values
+        (null, #{name}, #{author}, #{publish}, #{ISBN},
+        #{introduction}, #{language}, #{price}, #{pub_date},
+        #{class_id}, #{number})
+    </insert>
+    <update id="editBook" parameterType="com.tedu.library.pojo.Book">
+        update book_info set name=#{name}, author=#{author},
+        publish=#{publish}, ISBN=#{ISBN}, introduction=#{introduction},
+        language=#{language}, price=#{price}, pub_date=#{pub_date},
+        class_id=#{class_id}, number=#{number} where book_id=#{book_id}
+    </update>
+<!--    <select id="getAllBooks" resultType="com.tedu.library.pojo.Book">
+        select * from book_info
+    </select>-->
+    <select id="getClassifiedBooks" resultType="com.tedu.library.pojo.Book" >
+        select * from book_info where class_id = #{classId} limit #{page},#{size}
+    </select>
+    <select id="count2" resultType="int" >
+        select count(1) from book_info where class_id = #{classId}
+    </select>
+    <select id="queryBook" resultType="com.tedu.library.pojo.Book" >
+        select * from book_info where name like #{searchWord}
+        or author like #{searchWord} or introduction like #{searchWord} limit  #{page},#{size}
+    </select>
+    <select id="matchBook" resultType="int" parameterType="String">
+        select count(*) from book_info where name like #{search}
+        or author like #{search} or introduction like #{search}
+    </select>
+    <select id="getBook" resultType="com.tedu.library.pojo.Book" parameterType="int">
+        select * from book_info where book_id = #{book_id}
+    </select>
+    <select id="findByPager" resultType="com.tedu.library.pojo.Book">
+        select * from book_info limit #{page},#{size}
+    </select>
+    <delete id="deleteBook" parameterType="int">
+        delete from book_info where book_id = #{book_id}
+    </delete>
+    <select id="count" resultType="int">
+        select count(1) from book_info
+    </select>
+</mapper>

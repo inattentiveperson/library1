@@ -1,0 +1,24 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #自动匹配
+    url: jdbc:mysql://127.0.0.1:3306/library?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: root
+
+mybatis:
+  type-aliases-package: com.tedu.library.pojo
+  mapper-locations: classpath:/mappers/*.xml
+  #开启驼峰映射
+  configuration:
+    map-underscore-to-camel-case: true
+
+#添加日志
+logging:
+  level:
+    com.tedu.library.*: debug
+ #   com.tedu.library.dao: debug
